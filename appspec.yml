@@ -5,7 +5,7 @@ files:  #listamos los archivos que se desplegaran
     destination: /opt/tomcat/webapps
 hooks: #hooks donde se jecutara cirtos scripts segun en que parte del ciclo de vida se encuentra el despliegue
   ApplicationStop:
-    - location: codedeploy-scripts/stop.sh
+    - location: codedeploy-scripts/stop.sh #Localizacion del archivo
       timeout: 300
       runas: root
   BeforeInstall:
