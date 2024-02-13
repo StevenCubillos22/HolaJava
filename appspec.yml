@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:  #listamos los archivos que se desplegaran
+  - source: /build/libs/holamundo-0.0.1-SNAPSHOT.war
+    destination: /opt/tomcat/webapps
+hooks: #hooks donde se jecutara cirtos scripts segun en que parte del ciclo de vida se encuentra el despliegue
+  ApplicationStop:
+    - location: codedeploy-scripts/stop.sh
+      timeout: 300
+      runas: root
+  BeforeInstall:
+    - location: codedeploy-scripts/beforeinstall.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: codedeploy-scripts/start.sh
+      timeout: 300
+      runas: root
