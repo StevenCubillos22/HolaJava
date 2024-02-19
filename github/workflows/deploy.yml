@@ -20,12 +20,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
+       - name: Give execute permission to gradlew
+        run: chmod +x gradlew
+        
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
-          java-version: '11'
+          java-version: '17'
 
-      - name: Deploy with Gradle
-        run: ./gradlew deploy
+      - name: Build and deploy with Gradle
+        run: ./gradlew build
+
+      - name: Set SHA variable
+        run: echo "SHA=${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Display Github Sha
+        run: echo $GITHUB_SHA
